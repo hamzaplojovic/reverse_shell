@@ -4,7 +4,7 @@ import socket
 
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 5003
-BUFFER_SIZE = 1024 * 1024 # 1 MB
+BUFFER_SIZE = 1024 * 1024  # 1 MB
 SEPARATOR = "<sep>"
 
 s = socket.socket()
