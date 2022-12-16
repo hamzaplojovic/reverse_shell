@@ -80,7 +80,6 @@ class Connections_Listener:
             except Exception as error:
                 print(error)
                 print(type(error))
-                # print("\n----- [=] Connection is still intact [=] -----")
 
 
 try:
